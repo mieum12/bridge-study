@@ -46,7 +46,7 @@ export class Controller {
 
       // 3. 실패 -> 재시작 여부 묻기
       if (game.gameState === GAME.fail) {
-        await this.retry(game);
+        return await this.retry(game);
       }
     }
     // 다 돌고 나온 상태 = 성공
@@ -55,18 +55,23 @@ export class Controller {
     return game.getResult();
   }
 
+  /**
+   *
+   * @param {BridgeGame}game
+   * @return {Promise<GameResult|*>}
+   */
   async retry(game) {
     const gameCommand = await InputView.readGameCommand();
-    const result = game.retry(game, gameCommand);
+    game.retry(game, gameCommand);
     // 재시도
-    if (result === GAME.retry) {
+    if (game.getResult().gameState === GAME.retry) {
       console.log("RRRRRRRRRRRRRR계속한대");
-      await this.play(game);
+      return await this.play(game);
     }
     // 다시안해
-    if (result === GAME.quit) {
-      console.log("QQQQQQQQQQQQQq그만ㄹ한대");
-      return game.getResult();
-    }
+    // if (result === GAME.quit) {
+    //   console.log("QQQQQQQQQQQQQq그만ㄹ한대");
+    return game.getResult();
+    // }
   }
 }
