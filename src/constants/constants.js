@@ -20,6 +20,8 @@ export const GAME = {
   down: "D",
   retry: "R",
   quit: "Q",
-  success: '성공',
-  fail: '실패',
+  success: "성공",
+  fail: "실패",
+  progress: "다음",
+  replay: "재시도",
 };

@@ -1,6 +1,7 @@
-import { Console } from "@woowacourse/mission-utils";
-import { InputValidator } from "./InputValidator";
-import { MESSAGE } from "../constants/constants";
+import {Console} from "@woowacourse/mission-utils";
+import {InputValidator} from "./InputValidator";
+import {MESSAGE} from "../constants/constants";
+
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
  */
@@ -15,9 +16,8 @@ const InputView = {
       // 검증
       InputValidator.validateBridgeSizeInput(input);
       // 숫자로 변환해서 리턴
-      // return Number(input);
-      console.log('♻️',input)
-      return input;
+      return Number(input);
+      // return input;
     } catch (error) {
       // 예외 발생 시 에러 처리
       Console.print(`${error.message}`);

@@ -1,4 +1,4 @@
-import { Console } from "@woowacourse/mission-utils";
+import {Console} from "@woowacourse/mission-utils";
 import {GAME, MESSAGE} from "../constants/constants";
 
 /**
@@ -27,11 +27,11 @@ const OutputView = {
    * <p>
    * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
-  printResult(bridgeMap,state,totalTrial) {
-    Console.print(`${MESSAGE.result_map}`); //최종게임 결과
-    OutputView.printMap(bridgeMap)
-    Console.print(`${MESSAGE.result_state} ${state}`); // 게임 성공 여부: 성공
-    Console.print(`${MESSAGE.total_trial} ${totalTrial}`); // 총 시도한 횟수: 2
+  printResult(result) {
+    Console.print(`${MESSAGE.result_map}`); // 최종게임 결과
+    OutputView.printMap(result.map);
+    Console.print(`${MESSAGE.result_state} ${result.gameState}`); // 게임 성공 여부: 성공
+    Console.print(`${MESSAGE.total_trial} ${result.totalTrial}`); // 총 시도한 횟수: 2
   },
 };
 

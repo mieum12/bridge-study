@@ -14,15 +14,21 @@ class BridgeMap {
     this.#downBridge = downBridge;
   }
 
-  makeBridgeMap(resultArray) {
+  get up() {
+    return this.#upBridge;
+  }
+
+  get down() {
+    return this.#downBridge;
+  }
+
+  makeCurrentBridgeMap(resultArray) {
     //['U', 'D', 'UX'] 변환
     // upBridge,downBridge 따로 생각해야함
     this.makeUpBridge(resultArray);
     this.makeDownBridge(resultArray);
-    return {
-      up: this.#upBridge,
-      down: this.#downBridge,
-    };
+
+    return new BridgeMap(this.#upBridge, this.#downBridge);
   }
 
   makeUpBridge(resultArray) {
@@ -32,13 +38,14 @@ class BridgeMap {
           return GAME.move_success;
         case GAME.down:
           return GAME.move_blank;
-        case (GAME.up+GAME.move_fail):
+        case GAME.up + GAME.move_fail:
           return GAME.move_fail;
-        case (GAME.down+GAME.move_fail):
+        case GAME.down + GAME.move_fail:
           return GAME.move_blank;
       }
     });
   }
+
   makeDownBridge(resultArray) {
     this.#downBridge = resultArray.map((result) => {
       switch (result) {
@@ -46,9 +53,9 @@ class BridgeMap {
           return GAME.move_blank;
         case GAME.down:
           return GAME.move_success;
-        case (GAME.up+GAME.move_fail):
+        case GAME.up + GAME.move_fail:
           return GAME.move_blank;
-        case (GAME.down+GAME.move_fail):
+        case GAME.down + GAME.move_fail:
           return GAME.move_fail;
       }
     });
