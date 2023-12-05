@@ -32,6 +32,13 @@ class BridgeGame {
     return this.#gameState;
   }
 
+  init(answerBridge) {
+    // 재시도 시 초기화
+    this.#answerBridge = answerBridge;
+    this.#answerBridge = answerBridge;
+    this.#resultArray = [];
+  }
+
   /**
    * 사용자가 칸을 이동할 때 사용하는 메서드
    * <p>
@@ -51,7 +58,6 @@ class BridgeGame {
     if (moving !== answer) {
       this.#gameState = GAME.fail;
       this.#resultArray.push(moving + GAME.move_fail);
-      console.log("게임 상태는?", this.gameState);
     }
   }
 
@@ -69,13 +75,11 @@ class BridgeGame {
   retry(game, gameCommand) {
     // R 입력
     if (gameCommand === GAME.retry) {
-      console.log("R을 입력함!!!!!");
       this.#totalTrial++;
       this.#gameState = GAME.progress;
     }
     //Q 입력
     if (gameCommand === GAME.quit) {
-      console.log("Q을 입력함!!!!!");
       this.#gameState = GAME.fail;
       // Q로 종료 -> 끝내고, 결과 반환
     }

@@ -9,9 +9,8 @@ export class Controller {
   async start() {
     // 1. 게임 시작 (정답다리 생성)
     const bridgeGame = await this.setUpGame();
-    // 2. 본 게임(재도전이면 여기서부터 시작!)
+    // 2. 본 게임 (재도전이면 여기서부터 시작!)
     const result = await this.play(bridgeGame);
-    console.log(result.map);
     // 3. 종료 시 최종 결과 출력
     OutputView.printResult(result);
   }
@@ -64,14 +63,13 @@ export class Controller {
     const gameCommand = await InputView.readGameCommand();
     game.retry(game, gameCommand);
     // 재시도
-    if (game.getResult().gameState === GAME.retry) {
-      console.log("RRRRRRRRRRRRRR계속한대");
+    if (game.getResult().gameState === GAME.progress) {
+      // 다리 map 초기화 작업 필요
+      game.init(game.answerBridge);
       return await this.play(game);
     }
-    // 다시안해
-    // if (result === GAME.quit) {
-    //   console.log("QQQQQQQQQQQQQq그만ㄹ한대");
-    return game.getResult();
-    // }
+    if (game.getResult().gameState === GAME.fail) {
+      return game.getResult();
+    }
   }
 }
